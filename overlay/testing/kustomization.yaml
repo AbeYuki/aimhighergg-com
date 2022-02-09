@@ -1,0 +1,141 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: testing-wordpress
+secretGenerator:
+- name: kustomize-password
+  files:
+  - password=password.txt
+- name: docker-registry
+  files:
+   - '.dockerconfigjson=docker-registry.json'
+  type: kubernetes.io/dockerconfigjson
+generatorOptions:
+  disableNameSuffixHash: true
+bases:
+  - ../../base
+resources:
+  - configmap.yaml
+transformers:
+  - transformer-label.yaml
+  - transformer-suffixprefix.yaml
+images:
+  - name: frontend-app01
+    newName: wordpress
+    newTag: "5.5"
+  - name: backend-db01
+    newName: mariadb
+    newTag: "10.5"
+  - name: frontend-app02
+    newName: registry.gitlab.com/AbeYuki/repository/mediawiki-wiki
+    newTag: "1.36.3"
+  - name: backend-db02
+    newName: mariadb
+    newTag: "10.5"
+  - name: frontend-static01
+    newName: registry.gitlab.com/AbeYuki/repository/portfolio
+    newTag: "1.0"
+  - name: frontend-static02
+    newName: registry.gitlab.com/AbeYuki/repository/maintenance
+    newTag: "1.0"
+replicas:
+- name: frontend-app01
+  count: 3
+- name: backend-db01
+  count: 1
+- name: frontend-app02
+  count: 2
+- name: backend-db02
+  count: 1
+- name: frontend-static01
+  count: 2
+- name: frontend-static02
+  count: 1
+patchesStrategicMerge:
+- |-
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: frontend-app01
+  spec:
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+- |-
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: backend-db01
+  spec:
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 1Gi
+- |-
+  apiVersion: cert-manager.io/v1
+  kind: ClusterIssuer
+  metadata:
+    name: cluster-issuer
+  spec:
+    acme:
+      email: testing@example.com
+      server: https://acme-v02.api.letsencrypt.org/directory
+      privateKeySecretRef:
+        name: cluster-issuer-secret
+      solvers:
+      - http01:
+          ingress:
+            class: nginx
+- |-
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: ingress-tls
+  spec:
+    tls:
+    - hosts:
+        - testing.aimhighergg.com
+      secretName: tls-secret
+    rules:
+    - host: testing.aimhighergg.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: frontend-app01
+              port:
+                number: 80
+        - pathType: Prefix
+          path: /w
+          backend:
+            service:
+              name: frontend-app02
+              port:
+                number: 80
+        - pathType: Prefix
+          path: /wiki
+          backend:
+            service:
+              name: frontend-app02
+              port:
+                number: 80
+        - pathType: Prefix
+          path: /portfolio
+          backend:
+            service:
+              name: frontend-static01
+              port:
+                number: 80
+  #      - pathType: Prefix
+  #        path: /
+  #        backend:
+  #          service:
+  #            name: frontend-static02
+  #            port:
+  #              number: 80

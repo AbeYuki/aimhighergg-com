@@ -1,2 +1,0 @@
-# aimhighergg-com
-aimhighergg.com 

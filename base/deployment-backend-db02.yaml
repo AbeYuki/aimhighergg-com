@@ -43,7 +43,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-db01
+  name: backend-db02
   labels:
     app.kubernetes.io/name: mariadb-mw
     app.kubernetes.io/instance: mariadb-001

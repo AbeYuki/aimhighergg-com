@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: frontend-app02
   labels:
-    tier: frontend
     app.kubernetes.io/name: mediawiki
     app.kubernetes.io/instance: mediawiki-01
     app.kubernetes.io/version: "1.36.3"
@@ -17,9 +16,6 @@ spec:
       port: 80
       targetPort: 80
   selector:
-    environment : development
-    domain: www.domain.com
-    tier: frontend
     app.kubernetes.io/name: mediawiki
     app.kubernetes.io/instance: mediawiki-rpi-01
     app.kubernetes.io/version: "1.36.3"
@@ -31,9 +27,6 @@ kind: Deployment
 metadata:
   name: frontend-app02
   labels:
-    environment : development
-    domain: www.domain.com
-    tier: frontend
     app.kubernetes.io/name: mediawiki
     app.kubernetes.io/instance: mediawiki-rpi-01
     app.kubernetes.io/version: "1.36.3"
@@ -43,9 +36,6 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      environment : development
-      domain: www.domain.com
-      tier: frontend
       app.kubernetes.io/name: mediawiki
       app.kubernetes.io/instance: mediawiki-rpi-01
       app.kubernetes.io/version: "1.36.3"

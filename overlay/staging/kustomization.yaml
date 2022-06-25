@@ -1,6 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: staging-wordpress
+generatorOptions:
+  disableNameSuffixHash: true
+bases:
+  - ../../base
 secretGenerator:
 - name: kustomize-password
   files:
@@ -9,19 +13,23 @@ secretGenerator:
   files:
    - '.dockerconfigjson=docker-registry.json'
   type: kubernetes.io/dockerconfigjson
-generatorOptions:
-  disableNameSuffixHash: true
-bases:
-  - ../../base
-resources:
-  - configmap.yaml
+configMapGenerator:
+- name: template-config
+  literals:
+  - WORDPRESS_DB_HOST=backend-db01
+  - WORDPRESS_DB_NAME=wordpress
+  - WORDPRESS_DB_USER=wordpress
+  - MYSQL_DATABASE_WP=wordpress
+  - MYSQL_USER_WP=wordpress
+  - MYSQL_USER_MW=wordpress
+  - MYSQL_DATABASE_MW=tips_wiki
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml
 images:
   - name: frontend-app01
     newName: wordpress
-    newTag: "5.5"
+    newTag: "6.0.0-php8.1-apache"
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"
@@ -111,6 +119,7 @@ patchesStrategicMerge:
   metadata:
     name: ingress-tls
   spec:
+  ingressClassName: nginx
     tls:
     - hosts:
         - staging.aimhighergg.com

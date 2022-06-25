@@ -65,7 +65,7 @@ spec:
       imagePullSecrets:
         - name: docker-registry
       containers:
-      - image: registry.gitlab.com/AbeYuki/repository/maintenance:1.0
+      - image: frontend-static02
         imagePullPolicy: Always
         resources:
           limits:

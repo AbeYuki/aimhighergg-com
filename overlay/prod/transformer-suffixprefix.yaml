@@ -12,7 +12,7 @@ fieldSpecs:
     kind: ClusterIssuer
   - path: spec/tls/secretName
     kind: Ingress
-  - path: data/wordpress_db_host
+  - path: data/WORDPRESS_DB_HOST
     kind: ConfigMap
   - path: metadata/annotations/cert-manager.io\/cluster-issuer
     kins: Ingress

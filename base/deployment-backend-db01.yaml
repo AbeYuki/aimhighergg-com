@@ -103,17 +103,17 @@ spec:
           valueFrom:
             secretKeyRef:
               name: kustomize-password
-              key: password   
+              key: password
         - name: MYSQL_DATABASE
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: mysql_database_wp
+              key: MYSQL_DATABASE_WP
         - name: MYSQL_USER
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: mysql_user_wp               
+              key: MYSQL_USER_WP             
         ports:
         - containerPort: 3306
           name: mariadb

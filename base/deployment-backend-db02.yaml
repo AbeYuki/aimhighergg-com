@@ -108,12 +108,12 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: mysql_database_mw
+              key: MYSQL_DATABASE_MW
         - name: MYSQL_USER
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: mysql_user_mw               
+              key: MYSQL_USER_MW               
         ports:
         - containerPort: 3306
           name: mariadb

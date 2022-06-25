@@ -103,17 +103,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: wordpress_db_user
+              key: WORDPRESS_DB_USER
         - name: WORDPRESS_DB_HOST
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: wordpress_db_host
+              key: WORDPRESS_DB_HOST
         - name: WORDPRESS_DB_NAME
           valueFrom:
             configMapKeyRef:
               name: template-config
-              key: wordpress_db_name
+              key: WORDPRESS_DB_NAME
         ports:
         - containerPort: 80
           name: wordpress

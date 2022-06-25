@@ -5,6 +5,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: cluster-issuer
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
       - patchesstrategicmerge
@@ -17,6 +18,6 @@ spec:
         path: /
         backend:
           service:
-            name: frontend-app01
+            name: patchesstrategicmerge
             port:
               number: 80

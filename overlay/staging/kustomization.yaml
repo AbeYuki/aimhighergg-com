@@ -5,14 +5,15 @@ generatorOptions:
   disableNameSuffixHash: true
 bases:
   - ../../base
-secretGenerator:
-- name: kustomize-password
-  files:
-  - password=password.txt
-- name: docker-registry
-  files:
-   - '.dockerconfigjson=docker-registry.json'
-  type: kubernetes.io/dockerconfigjson
+### Separated secret to use argocd ###
+#secretGenerator:
+#- name: kustomize-password
+#  files:
+#  - password=password.txt
+#- name: docker-registry
+#  files:
+#   - '.dockerconfigjson=docker-registry.json'
+#  type: kubernetes.io/dockerconfigjson
 configMapGenerator:
 - name: template-config
   literals:

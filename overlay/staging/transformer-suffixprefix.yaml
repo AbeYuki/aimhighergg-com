@@ -2,7 +2,7 @@ apiVersion: builtin
 kind: PrefixSuffixTransformer
 metadata:
   name: prefixsuffix-transformer
-prefix: staging-wordpress-
+prefix: staging-aimhighergg-com-
 suffix: "-001"
 fieldSpecs:
   - path: metadata/name

@@ -4,7 +4,7 @@ namespace: testing-aimhighergg-com
 generatorOptions:
   disableNameSuffixHash: true
 bases:
-  - ../../base
+  - ../../base-testing
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password
@@ -35,16 +35,16 @@ images:
     newName: mariadb
     newTag: "10.5"
   - name: frontend-app02
-    newName: registry.gitlab.com/aimhigehrgg/repository/mediawiki-wiki
+    newName: registry.gitlab.com/aimhighergg/docker-registry/mediawiki-wiki
     newTag: "1.36.3"
   - name: backend-db02
     newName: mariadb
     newTag: "10.5"
   - name: frontend-static01
-    newName: registry.gitlab.com/aimhigehrgg/repository/portfolio
+    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
     newTag: "1.0"
   - name: frontend-static02
-    newName: registry.gitlab.com/aimhigehrgg/repository/maintenance
+    newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
     newTag: "1.0"
 replicas:
 - name: frontend-app01

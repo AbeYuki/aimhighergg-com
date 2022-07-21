@@ -11,7 +11,7 @@ workflows:
             branches:
               only: 
                 - main
-      - status:
+      - status-pod:
           context: kaniko
           requires:
             - create-update
@@ -19,10 +19,26 @@ workflows:
             branches:
               only: 
                 - main
+      - status-app:
+          context: kaniko
+          requires:
+            - status-pod
+          filters:
+            branches:
+              only: 
+                - main
+      - status-db:
+          context: kaniko
+          requires:
+            - status-app
+          filters:
+            branches:
+              only: 
+                - main
       - delete:
           context: kaniko
           requires:
-            - status
+            - status-db
           filters:
             branches:
               only: 
@@ -65,7 +81,7 @@ jobs:
           resource-file-path: kubernetes/overlay/testing
           show-kubectl-command: true
 
-  status:
+  status-pod:
     resource_class: abeyuki/circleci
     executor:
       name: default
@@ -74,12 +90,48 @@ jobs:
       - run:
           name: "status check"
           command: |
-              while true ;do 
-                  if [[ $(kubectl get pods -n testing-kakeibo --field-selector=status.phase=Running | awk 'NR>1 {print$3}') ==  Running* ]] ;then 
-                      echo OK ; break 
-                  else echo NG ; sleep 3 
-                  fi
-              done
+            ns=testing-aimhighergg-com
+            count=3
+            while true ;do 
+                if [[ $(kubectl get pods -n $ns --field-selector=status.phase=Running | awk 'NR>1 {print$3}' | wc -l) -ge ${count} ]] ;then 
+                    echo "pod status OK" ; sleep 3 ; break 
+                else echo "pod status NG" ; sleep 3
+                fi
+            done
+
+  status-app:
+    resource_class: abeyuki/circleci
+    executor:
+      name: default
+    steps:
+      - checkout
+      - run:
+          name: "status check"
+          command: |
+            ns=testing-aimhighergg-com
+            app=$(kubectl get pod --selector="app.kubernetes.io/name=wordpress" -n $ns | awk 'NR>1{print $1}' | head -1)
+            if [[ $(kubectl -n testing-aimhighergg-com exec pod/${app} -- ps aux | grep apache2 | wc -l) -ge 5  ]] ;then
+              echo "ps status OK" 
+            else
+              echo "ps status NG" ; break
+            fi
+
+  status-db:
+    resource_class: abeyuki/circleci
+    executor:
+      name: default
+    steps:
+      - checkout
+      - run:
+          name: "status check"
+          command: |
+            ns=testing-aimhighergg-com
+            db=$(kubectl get pod --selector="app.kubernetes.io/name=mariadb-wp" -n $ns | awk 'NR>1{print $1}' | head -1)
+            if [[ $(kubectl -n testing-aimhighergg-com exec pod/${db} -- ps aux | grep mysqld | wc -l) -ge 1  ]] ;then
+              echo "ps status OK" 
+            else
+              echo "ps status NG" ; break
+            fi
 
   delete:
     resource_class: abeyuki/circleci

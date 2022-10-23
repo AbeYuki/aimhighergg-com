@@ -172,13 +172,13 @@ patchesStrategicMerge:
               name: frontend-static02
               port:
                 number: 80
-        - pathType: Prefix
-          path: /.*
-          backend:
-            service:
-              name: frontend-static02
-              port:
-                number: 80
+        #- pathType: Prefix
+        #  path: /.*
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80
         #- pathType: Prefix
         #  path: /(.*)/(.*)
         #  backend:

@@ -48,7 +48,7 @@ images:
     newTag: "1.0"
 replicas:
 - name: frontend-app01
-  count: 2
+  count: 1
 - name: backend-db01
   count: 1
 - name: frontend-app02

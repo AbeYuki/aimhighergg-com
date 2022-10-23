@@ -129,39 +129,39 @@ patchesStrategicMerge:
     - host: www.aimhighergg.com
       http:
         paths:
-        - pathType: Prefix
-          path: /
-          backend:
-            service:
-              name: frontend-app01
-              port:
-                number: 80
-        - pathType: Prefix
-          path: /w
-          backend:
-            service:
-              name: frontend-app02
-              port:
-                number: 80
-        - pathType: Prefix
-          path: /wiki
-          backend:
-            service:
-              name: frontend-app02
-              port:
-                number: 80
-        - pathType: Prefix
-          path: /portfolio
-          backend:
-            service:
-              name: frontend-static01
-              port:
-                number: 80
         #- pathType: Prefix
         #  path: /
         #  backend:
         #    service:
-        #      name: frontend-static02
+        #      name: frontend-app01
         #      port:
         #        number: 80
+        #- pathType: Prefix
+        #  path: /w
+        #  backend:
+        #    service:
+        #      name: frontend-app02
+        #      port:
+        #        number: 80
+        #- pathType: Prefix
+        #  path: /wiki
+        #  backend:
+        #    service:
+        #      name: frontend-app02
+        #      port:
+        #        number: 80
+        #- pathType: Prefix
+        #  path: /portfolio
+        #  backend:
+        #    service:
+        #      name: frontend-static01
+        #      port:
+        #        number: 80
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: frontend-static02
+              port:
+                number: 80
 

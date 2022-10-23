@@ -122,10 +122,10 @@ patchesStrategicMerge:
     annotations:
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /$1$2
-      #nginx.ingress.kubernetes.io/server-snippet: |
-      #      location ~ ^/(.*) {
-      #        return 302 https://www.aimhighergg.com/$1;
-      #      }
+      nginx.ingress.kubernetes.io/server-snippet: |
+            location ~ ^/(.*) {
+              return 301 https://www.aimhighergg.com/$1;
+            }
   spec:
     ingressClassName: nginx 
     tls:

@@ -122,10 +122,10 @@ patchesStrategicMerge:
     annotations:
       nginx.org/use-regex: "true"
       nginx.org/rewrite-target: /$1$2
-      #nginx.org/server-snippet: |
-      # location ~ ^/(.*) {
-      #   return 302 /;
-      # }
+      nginx.org/server-snippet: |
+       location ~ ^/(.*) {
+         return 302 /;
+       }
   spec:
     ingressClassName: nginx 
     tls:

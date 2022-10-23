@@ -123,7 +123,7 @@ patchesStrategicMerge:
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/server-snippet: |
             location ~ ^/(.*) {
-              return 301 https://www.aimhighergg.com/$1;
+              return 302 https://www.aimhighergg.com/;
             }
   spec:
     ingressClassName: nginx 

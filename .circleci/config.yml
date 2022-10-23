@@ -10,7 +10,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - test
       - status-pod:
           context: kaniko
           requires:
@@ -18,7 +18,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - test
       - status-app:
           context: kaniko
           requires:
@@ -26,7 +26,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - test
       - status-db:
           context: kaniko
           requires:
@@ -34,7 +34,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - test
       - delete:
           context: kaniko
           requires:
@@ -42,7 +42,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - test
   
 executors:
   default:

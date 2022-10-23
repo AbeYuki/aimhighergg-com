@@ -120,9 +120,9 @@ patchesStrategicMerge:
   metadata:
     name: ingress-tls
     annotations:
-      nginx.org/use-regex: "true"
-      nginx.org/rewrite-target: /$1$2
-      nginx.org/server-snippet: |
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      #nginx.ingress.kubernetes.iorewrite-target: /$1$2
+      nginx.ingress.kubernetes.io/server-snippet: |
        location ~ ^/(.*) {
          return 302 /;
        }
@@ -171,18 +171,18 @@ patchesStrategicMerge:
               name: frontend-static02
               port:
                 number: 80
-        - pathType: Prefix
-          path: /(.*)
-          backend:
-            service:
-              name: frontend-static02
-              port:
-                number: 80
-        - pathType: Prefix
-          path: /(.*)/(.*)
-          backend:
-            service:
-              name: frontend-static02
-              port:
-                number: 80
+        #- pathType: Prefix
+        #  path: /(.*)
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80
+        #- pathType: Prefix
+        #  path: /(.*)/(.*)
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80
 

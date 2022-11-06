@@ -119,9 +119,8 @@ patchesStrategicMerge:
   kind: Ingress
   metadata:
     name: ingress-tls
-    #annotations:
-    #  nginx.ingress.kubernetes.io/use-regex: "true"
-    #  nginx.ingress.kubernetes.io/rewrite-target: /
+    annotations:
+      metallb.universe.tf/address-pool: production
   spec:
     ingressClassName: nginx 
     tls:

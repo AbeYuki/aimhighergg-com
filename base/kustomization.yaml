@@ -5,6 +5,7 @@ resources:
   - ingress-tls.yaml
   - deployment-frontend-static01.yaml
   - deployment-frontend-static02.yaml
+  - deployment-frontend-static03.yaml
   - deployment-frontend-app01.yaml
   - deployment-frontend-app02.yaml
   - deployment-backend-db01.yaml

@@ -68,6 +68,8 @@ spec:
       - name: flask
         image: frontend-static03
         imagePullPolicy: Always
+        args:
+          - flask run
         env:
         - name: FLASK_APP
           value: "portfolio.app:create_app()"

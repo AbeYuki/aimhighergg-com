@@ -68,7 +68,7 @@ spec:
       - name: flask
         image: frontend-static03
         imagePullPolicy: Always
-        commands: ["bash", "-c"]
+        command: ["bash", "-c"]
         args:
           - flask run
         env:

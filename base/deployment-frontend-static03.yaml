@@ -73,7 +73,7 @@ spec:
           value: "portfolio.app:create_app()"
         - name: FLASK_RUN_PORT
           value: "80"
-        -name: FLASK_RUN_HOST
+        - name: FLASK_RUN_HOST
           value: "0.0.0.0"
         resources:
           limits:

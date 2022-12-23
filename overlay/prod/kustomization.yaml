@@ -211,7 +211,7 @@ patchesStrategicMerge:
           path: /portfolio
           backend:
             service:
-              name: frontend-static01
+              name: frontend-static03
               port:
                 number: 80
         #- pathType: Prefix

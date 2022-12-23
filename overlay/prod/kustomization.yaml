@@ -62,6 +62,8 @@ replicas:
   count: 1
 - name: frontend-static02
   count: 1
+- name: frontend-static03
+  count: 1
 patchesStrategicMerge:
 - |-
   apiVersion: v1

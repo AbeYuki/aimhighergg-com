@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-static01
+  name: frontend-static03
   labels:
     app.kubernetes.io/name: flask-portfolio
     app.kubernetes.io/instance: flask-rpi-001
@@ -25,7 +25,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-static01
+  name: frontend-static03
   labels:
     app.kubernetes.io/name: flask-portfolio
     app.kubernetes.io/instance: flask-rpi-001
@@ -70,7 +70,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: FLASK_APP
-            value: portfolio.app:create_app()
+            value: "portfolio.app:create_app()"
           - name: FLASK_RUN_PORT
             value: "80"
           -name: FLASK_RUN_HOST

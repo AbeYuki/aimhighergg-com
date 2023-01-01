@@ -42,22 +42,27 @@ images:
     newTag: "10.5"
   - name: frontend-static01
     newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
-    newTag: "1.0"
+    newTag: "1.1"
   - name: frontend-static02
     newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
     newTag: "1.0"
+  - name: frontend-static03
+    newName: registry.gitlab.com/aimhighergg/docker-registry/flask-portfolio
+    newTag: "1.0"
 replicas:
 - name: frontend-app01
-  count: 3
+  count: 1
 - name: backend-db01
   count: 1
 - name: frontend-app02
-  count: 2
+  count: 1
 - name: backend-db02
   count: 1
 - name: frontend-static01
-  count: 2
+  count: 1
 - name: frontend-static02
+  count: 1
+- name: frontend-static03
   count: 1
 patchesStrategicMerge:
 - |-
@@ -106,7 +111,7 @@ patchesStrategicMerge:
     name: cluster-issuer
   spec:
     acme:
-      email: staging@example.com
+      email: aim4highergg@gmail.com
       server: https://acme-v02.api.letsencrypt.org/directory
       privateKeySecretRef:
         name: cluster-issuer-secret
@@ -120,7 +125,7 @@ patchesStrategicMerge:
   metadata:
     name: ingress-tls
   spec:
-  ingressClassName: nginx
+    ingressClassName: nginx 
     tls:
     - hosts:
         - staging.aimhighergg.com
@@ -154,13 +159,27 @@ patchesStrategicMerge:
           path: /portfolio
           backend:
             service:
-              name: frontend-static01
+              name: frontend-static03
               port:
                 number: 80
-  #      - pathType: Prefix
-  #        path: /
-  #        backend:
-  #          service:
-  #            name: frontend-static02
-  #            port:
-  #              number: 80
+        #- pathType: Prefix
+        #  path: /
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80
+        #- pathType: Prefix
+        #  path: /.*
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80
+        #- pathType: Prefix
+        #  path: /.*\/.*
+        #  backend:
+        #    service:
+        #      name: frontend-static02
+        #      port:
+        #        number: 80

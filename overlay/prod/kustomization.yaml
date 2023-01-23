@@ -94,10 +94,10 @@ patchesStrategicMerge:
         - name: wordpress
           resources:
             limits:
-              memory: 1024Mi
+              memory: 256Mi
               cpu: "0.5"
             requests:
-              memory: 256Mi
+              memory: 125Mi
               cpu: "0.25"
 - |-
   apiVersion: apps/v1
@@ -108,13 +108,13 @@ patchesStrategicMerge:
     template:
       spec:
         containers:
-        - name: mariadb
+        - name: backend-db02
           resources:
             limits:
               memory: 512Mi
               cpu: "0.3"
             requests:
-              memory: 512Mi
+              memory: 125Mi
               cpu: "0.1"
 - |-
   apiVersion: apps/v1
@@ -128,10 +128,10 @@ patchesStrategicMerge:
         - name: mediawiki
           resources:
             limits:
-              memory: 1024Mi
+              memory: 256Mi
               cpu: "0.3"
             requests:
-              memory: 256Mi
+              memory: 125Mi
               cpu: "0.1"
 - |-
   apiVersion: apps/v1

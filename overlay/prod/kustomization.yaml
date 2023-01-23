@@ -108,7 +108,7 @@ patchesStrategicMerge:
     template:
       spec:
         containers:
-        - name: backend-db02
+        - name: db02
           resources:
             limits:
               memory: 512Mi

@@ -83,7 +83,8 @@ spec:
       imagePullSecrets:
         - name: docker-registry
       containers:
-      - image: backend-db02
+      - name: mariadb
+        image: backend-db02
         imagePullPolicy: Always
         resources:
           limits:
@@ -92,7 +93,6 @@ spec:
           requests:
             memory: 512Mi
             cpu: "0.25"
-        name: mariadb
         env: 
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:

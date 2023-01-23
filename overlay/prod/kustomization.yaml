@@ -66,6 +66,125 @@ replicas:
   count: 1
 patchesStrategicMerge:
 - |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: backend-db01
+  spec:
+    template:
+      spec:
+        containers:
+        - name: mariadb
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "0.5"
+            requests:
+              memory: 512Mi
+              cpu: "0.25"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-app01
+  spec:
+    template:
+      spec:
+        containers:
+        - name: wordpress
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: "0.5"
+            requests:
+              memory: 256Mi
+              cpu: "0.25"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: backend-db02
+  spec:
+    template:
+      spec:
+        containers:
+        - name: mariadb
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "0.3"
+            requests:
+              memory: 512Mi
+              cpu: "0.1"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-app02
+  spec:
+    template:
+      spec:
+        containers:
+        - name: mediawiki
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: "0.3"
+            requests:
+              memory: 256Mi
+              cpu: "0.1"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-static01
+  spec:
+    template:
+      spec:
+        containers:
+        - name: nginx
+          resources:
+            limits:
+              memory: 125Mi
+              cpu: "0.1"
+            requests:
+              memory: 125Mi
+              cpu: "0.1"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-static02
+  spec:
+    template:
+      spec:
+        containers:
+        - name: nginx
+          resources:
+            limits:
+              memory: 125Mi
+              cpu: "0.1"
+            requests:
+              memory: 125Mi
+              cpu: "0.1"
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: frontend-static03
+  spec:
+    template:
+      spec:
+        containers:
+        - name: flask
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "0.3"
+            requests:
+              memory: 125Mi
+              cpu: "0.1"
+- |-
   apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:

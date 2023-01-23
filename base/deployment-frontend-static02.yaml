@@ -65,7 +65,8 @@ spec:
       imagePullSecrets:
         - name: docker-registry
       containers:
-      - image: frontend-static02
+      - name: nginx
+        image: frontend-static02
         imagePullPolicy: Always
         resources:
           limits:
@@ -74,7 +75,6 @@ spec:
           requests:
             memory: 256Mi
             cpu: "0.25"
-        name: nginx
         ports:
         - containerPort: 80
           name: nginx

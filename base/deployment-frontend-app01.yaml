@@ -83,7 +83,8 @@ spec:
       imagePullSecrets:
         - name: docker-registry
       containers:
-      - image: frontend-app01
+      - name: wordpress
+        image: frontend-app01
         imagePullPolicy: Always
         resources:
           limits:
@@ -92,7 +93,6 @@ spec:
           requests:
             memory: 256Mi
             cpu: "0.25"
-        name: wordpress
         env:
         - name: WORDPRESS_DB_PASSWORD
           valueFrom:

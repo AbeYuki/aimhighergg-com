@@ -83,7 +83,7 @@ spec:
       imagePullSecrets:
         - name: docker-registry
       containers:
-      - name: mariadb
+      - name: db02
         image: backend-db02
         imagePullPolicy: Always
         resources:

@@ -42,7 +42,9 @@ spec:
       app.kubernetes.io/component: server
       app.kubernetes.io/part-of: mediawiki
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
   template:
     metadata:
       labels:

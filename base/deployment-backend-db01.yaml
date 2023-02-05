@@ -60,7 +60,9 @@ spec:
       app.kubernetes.io/component: database
       app.kubernetes.io/part-of: wordpress
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
   template:
     metadata:
       labels:

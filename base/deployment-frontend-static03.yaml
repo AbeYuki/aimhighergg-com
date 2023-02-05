@@ -45,6 +45,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 2
+      maxUnavailable: 0
   template:
     metadata:
       labels:

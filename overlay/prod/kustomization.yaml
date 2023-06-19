@@ -26,6 +26,7 @@ configMapGenerator:
   - MYSQL_DATABASE_MW=tips_wiki
 transformers:
   - transformer-label.yaml
+  - transformer-label-consul.yaml
   - transformer-suffixprefix.yaml
 images:
   - name: frontend-app01

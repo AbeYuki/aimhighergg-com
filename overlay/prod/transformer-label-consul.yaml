@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: label-transformer-consul
+labels:
+  consul.hashicorp.com/connect-inject: 'true'
+fieldSpecs:
+- path: spec/template/metadata/labels
+  kind: Deployment
+  create: true

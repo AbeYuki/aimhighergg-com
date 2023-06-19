@@ -180,10 +180,10 @@ patchesStrategicMerge:
         - name: flask
           resources:
             limits:
-              memory: 256Mi
+              memory: 526Mi
               cpu: "0.3"
             requests:
-              memory: 125Mi
+              memory: 256Mi
               cpu: "0.1"
 - |-
   apiVersion: v1

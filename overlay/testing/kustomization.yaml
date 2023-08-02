@@ -4,7 +4,9 @@ namespace: testing-aimhighergg-com
 generatorOptions:
   disableNameSuffixHash: true
 bases:
-  - ../../base-testing
+  - ../../base
+resources:
+  - secret.yaml
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password

@@ -101,3 +101,7 @@ patchesStrategicMerge:
         storage: 1Gi
     storageClassName: longhorn
     volumeMode: Filesystem
+openapi:
+  path: openapi.json
+configurations:
+- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml

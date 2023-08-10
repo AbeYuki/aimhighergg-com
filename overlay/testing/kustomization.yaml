@@ -5,6 +5,7 @@ generatorOptions:
   disableNameSuffixHash: true
 bases:
   - ../../base
+  - git::https://github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.1.0
 resources:
   - secret.yaml
 ### Separated secret to use argocd ###
@@ -101,7 +102,3 @@ patchesStrategicMerge:
         storage: 1Gi
     storageClassName: longhorn
     volumeMode: Filesystem
-openapi:
-  path: openapi.json
-configurations:
-- https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml

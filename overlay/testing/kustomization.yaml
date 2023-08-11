@@ -6,8 +6,8 @@ generatorOptions:
 bases:
   - ../../base
 #  - git::https://github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.1.0
-#resources:
-#  - secret.yaml
+resources:
+  - secret.yaml
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password

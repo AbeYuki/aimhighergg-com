@@ -5,8 +5,8 @@ generatorOptions:
   disableNameSuffixHash: true
 bases:
   - ../../base
-#resources:
-#  - secret-avp-db.yaml
+resources:
+  - secret-avp-db.yaml
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password

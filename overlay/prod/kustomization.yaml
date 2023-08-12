@@ -7,7 +7,7 @@ bases:
   - ../../base
 resources:
   - secret-avp-db.yaml
-#  - secret-avp-registry.yaml
+  - secret-avp-registry.yaml
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password

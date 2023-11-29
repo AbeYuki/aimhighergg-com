@@ -51,8 +51,8 @@ images:
     newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
     newTag: "1.0"
   - name: frontend-static03
-    newName: registry.gitlab.com/aimhighergg/docker-registry/flask-portfolio
-    newTag: "1.0"
+    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
+    newTag: "1.2.0"
 replicas:
 - name: frontend-app01
   count: 1

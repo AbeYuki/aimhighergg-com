@@ -71,16 +71,6 @@ spec:
       - name: flask
         image: frontend-static03
         imagePullPolicy: Always
-        command: ["bash", "-c"]
-        args:
-          - flask run
-        env:
-        - name: FLASK_APP
-          value: "portfolio.app:create_app()"
-        - name: FLASK_RUN_PORT
-          value: "80"
-        - name: FLASK_RUN_HOST
-          value: "0.0.0.0"
         resources:
           limits:
             memory: 256Mi

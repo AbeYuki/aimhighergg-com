@@ -3,9 +3,8 @@ kind: Kustomization
 namespace: www-aimhighergg-com
 generatorOptions:
   disableNameSuffixHash: true
-bases:
-  - ../../base
 resources:
+  - ../../base
   - secret-avp-db.yaml
 #  - secret-avp-registry.yaml
 ### Separated secret to use argocd ###
@@ -68,24 +67,21 @@ replicas:
   count: 1
 - name: frontend-static03
   count: 1
+patches:
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: backend-db01
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.5"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "512Mi"
+
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: backend-db01
-  spec:
-    template:
-      spec:
-        containers:
-        - name: mariadb
-          resources:
-            limits:
-              memory: 512Mi
-              cpu: "0.5"
-            requests:
-              memory: 512Mi
-              cpu: "0.25"
 - |-
   apiVersion: apps/v1
   kind: Deployment

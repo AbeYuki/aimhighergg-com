@@ -75,30 +75,37 @@ patches:
       name: backend-db01
     patch: |-
       - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.25"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "512Mi"
+      - op: replace
         path: /spec/template/spec/containers/0/resources/limits/cpu
         value: "0.5"
       - op: replace
         path: /spec/template/spec/containers/0/resources/limits/memory
         value: "512Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-app01
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.25"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.5"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "256Mi"
 
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: frontend-app01
-  spec:
-    template:
-      spec:
-        containers:
-        - name: wordpress
-          resources:
-            limits:
-              memory: 256Mi
-              cpu: "0.5"
-            requests:
-              memory: 125Mi
-              cpu: "0.25"
 - |-
   apiVersion: apps/v1
   kind: Deployment

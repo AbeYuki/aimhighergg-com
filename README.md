@@ -1,6 +1,5 @@
 # status
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/AbeYuki/aimhighergg-com/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/AbeYuki/aimhighergg-com/tree/main)
-![Argocd](https://argocd.aimhighergg.com/api/badge?name=www-aimhighergg-com&revision=true)
 
 # aimhighergg.com manifest
 ```

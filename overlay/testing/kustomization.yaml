@@ -41,6 +41,9 @@ images:
   - name: frontend-static02
     newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
     newTag: "1.0"
+  - name: frontend-static03
+    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
+    newTag: "1.2.1"
 replicas:
 - name: frontend-app01
   count: 1

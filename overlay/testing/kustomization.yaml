@@ -3,20 +3,12 @@ kind: Kustomization
 namespace: testing-aimhighergg-com
 generatorOptions:
   disableNameSuffixHash: true
-bases:
-  - ../../base
-#  - git::https://github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.1.0
 resources:
-  - secret.yaml
-### Separated secret to use argocd ###
-#secretGenerator:
-#- name: kustomize-password
-#  files:
-#  - password=password.txt
-#- name: docker-registry
-#  files:
-#   - '.dockerconfigjson=docker-registry.json'
-#  type: kubernetes.io/dockerconfigjson
+  - ../../base-testing
+secretGenerator:
+- name: kustomize-password
+  literals:
+    - password=testing
 configMapGenerator:
 - name: template-config
   literals:
@@ -62,43 +54,172 @@ replicas:
   count: 1
 - name: frontend-static02
   count: 1
-patchesStrategicMerge:
-- |-
-  apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: frontend-app01
-  spec:
-    accessModes:
-    - ReadWriteMany
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: longhorn
-    volumeMode: Filesystem
-- |-
-  apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: backend-db01
-  spec:
-    accessModes:
-    - ReadWriteMany
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: longhorn
-    volumeMode: Filesystem
-- |-
-  apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: backend-db02
-  spec:
-    accessModes:
-    - ReadWriteMany
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: longhorn
-    volumeMode: Filesystem
+patches:
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: backend-db01
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.25"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "512Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.5"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "512Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-app01
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.25"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.5"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "256Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: backend-db02
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.3"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "512Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-app02
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.3"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "256Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-static01
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "125Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-static02
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "125Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "125Mi"
+  - target:
+      version: v1
+      group: apps
+      kind: Deployment
+      name: frontend-static03
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/cpu
+        value: "0.1"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: "256Mi"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/cpu
+        value: "0.3"
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: "526Mi"
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: frontend-app01
+    patch: |-
+      - op: replace
+        path: /spec/accessModes/0
+        value: ReadWriteOnce
+      - op: replace
+        path: /spec/storageClassName
+        value: standard
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "1Gi"
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: backend-db01
+    patch: |-
+      - op: replace
+        path: /spec/accessModes/0
+        value: ReadWriteOnce
+      - op: replace
+        path: /spec/storageClassName
+        value: standard
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "1Gi"
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: backend-db02
+    patch: |-
+      - op: replace
+        path: /spec/accessModes/0
+        value: ReadWriteOnce
+      - op: replace
+        path: /spec/storageClassName
+        value: standard
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "1Gi"

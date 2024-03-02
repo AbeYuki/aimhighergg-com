@@ -5,6 +5,7 @@ generatorOptions:
   disableNameSuffixHash: true
 bases:
   - ../../base
+  - ../../base-ingress
 ### Separated secret to use argocd ###
 #secretGenerator:
 #- name: kustomize-password

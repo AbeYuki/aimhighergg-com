@@ -4,7 +4,7 @@ namespace: testing-aimhighergg-com
 generatorOptions:
   disableNameSuffixHash: true
 resources:
-  - ../../base-testing
+  - ../../base
 secretGenerator:
 - name: kustomize-password
   literals:

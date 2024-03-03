@@ -1,20 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: staging-aimhighergg-com
-generatorOptions:
-  disableNameSuffixHash: true
 bases:
   - ../../base
   - ../../base-ingress
-### Separated secret to use argocd ###
-#secretGenerator:
-#- name: kustomize-password
-#  files:
-#  - password=password.txt
-#- name: docker-registry
-#  files:
-#   - '.dockerconfigjson=docker-registry.json'
-#  type: kubernetes.io/dockerconfigjson
 configMapGenerator:
 - name: template-config
   literals:

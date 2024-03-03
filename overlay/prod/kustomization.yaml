@@ -5,6 +5,7 @@ generatorOptions:
   disableNameSuffixHash: true
 resources:
   - ../../base
+  - ../../base-ingress
   - secret-avp-db.yaml
 #  - secret-avp-registry.yaml
 ### Separated secret to use argocd ###

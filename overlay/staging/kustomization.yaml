@@ -1,19 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: staging-aimhighergg-com
-generatorOptions:
-  disableNameSuffixHash: true
 bases:
   - ../../base
-### Separated secret to use argocd ###
-#secretGenerator:
-#- name: kustomize-password
-#  files:
-#  - password=password.txt
-#- name: docker-registry
-#  files:
-#   - '.dockerconfigjson=docker-registry.json'
-#  type: kubernetes.io/dockerconfigjson
+  - ../../base-ingress
+  - secret-avp-db.yaml
 configMapGenerator:
 - name: template-config
   literals:
@@ -47,8 +38,8 @@ images:
     newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
     newTag: "1.0"
   - name: frontend-static03
-    newName: registry.gitlab.com/aimhighergg/docker-registry/flask-portfolio
-    newTag: "1.0"
+    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
+    newTag: "1.2.1"
 replicas:
 - name: frontend-app01
   count: 1

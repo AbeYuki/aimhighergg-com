@@ -4,6 +4,7 @@ namespace: staging-aimhighergg-com
 bases:
   - ../../base
   - ../../base-ingress
+  - secret-avp-db.yaml
 configMapGenerator:
 - name: template-config
   literals:

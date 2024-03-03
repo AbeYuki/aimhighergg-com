@@ -5,7 +5,12 @@ bases:
   - ../../base
   - ../../base-ingress
   - secret-avp-db.yaml
-  - secret-avp-registry.yaml
+#  - secret-avp-registry.yaml
+secretGenerator:
+  - name: docker-registry
+    literals:
+      - .dockerconfigjson=<path:secret/data/docker/registry#DOCKER_REGISTRY>
+    type: kubernetes.io/dockerconfigjson
 configMapGenerator:
 - name: template-config
   literals:

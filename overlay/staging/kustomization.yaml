@@ -15,6 +15,9 @@ configMapGenerator:
   - MYSQL_USER_WP=wordpress
   - MYSQL_USER_MW=wordpress
   - MYSQL_DATABASE_MW=tips_wiki
+  - DB_HOST=testing-aimhighergg-com-wikijs-db-001
+  - DB_PORT="5432"
+  - DB_TYPE=postgres
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml

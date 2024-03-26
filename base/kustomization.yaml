@@ -8,3 +8,5 @@ resources:
   - deployment-frontend-app02.yaml
   - deployment-backend-db01.yaml
   - deployment-backend-db02.yaml
+  - deployment-wikijs-db.yaml
+  - deployment-wikijs.yaml

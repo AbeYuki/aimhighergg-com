@@ -9,6 +9,9 @@ secretGenerator:
 - name: kustomize-password
   literals:
     - password=testing
+    - POSTGRES_USER=wikijs
+    - DB_USER=wikijs
+    - DB_NAME=wikijs
 configMapGenerator:
 - name: template-config
   literals:
@@ -19,6 +22,10 @@ configMapGenerator:
   - MYSQL_USER_WP=wordpress
   - MYSQL_USER_MW=wordpress
   - MYSQL_DATABASE_MW=tips_wiki
+  - POSTGRES_DB=wikijs
+  - DB_HOST=testing-aimhighergg-com-wikijs-db-001
+  - DB_PORT="5432"
+  - DB_TYPE=postgres
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml
@@ -44,6 +51,12 @@ images:
   - name: frontend-static03
     newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
     newTag: "1.2.1"
+  - name: wikijs-db
+    newName: postgres
+    newTag: "15-alpine"
+  - name: wikijs
+    newName: ghcr.io/requarks/wiki
+    newTag: "2"
 replicas:
 - name: frontend-app01
   count: 1
@@ -216,6 +229,20 @@ patches:
       version: v1
       kind: PersistentVolumeClaim
       name: backend-db02
+    patch: |-
+      - op: replace
+        path: /spec/accessModes/0
+        value: ReadWriteOnce
+      - op: replace
+        path: /spec/storageClassName
+        value: standard
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: "1Gi"
+  - target:
+      version: v1
+      kind: PersistentVolumeClaim
+      name: wikijs-db
     patch: |-
       - op: replace
         path: /spec/accessModes/0

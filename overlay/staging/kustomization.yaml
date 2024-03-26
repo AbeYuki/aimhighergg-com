@@ -40,6 +40,12 @@ images:
   - name: frontend-static03
     newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
     newTag: "1.2.1"
+  - name: wikijs-db
+    newName: postgres
+    newTag: "15-alpine"
+  - name: wikijs
+    newName: ghcr.io/requarks/wiki
+    newTag: "2"
 replicas:
 - name: frontend-app01
   count: 1

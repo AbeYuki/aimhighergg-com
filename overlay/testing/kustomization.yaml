@@ -12,6 +12,7 @@ secretGenerator:
     - POSTGRES_USER=wikijs
     - DB_USER=wikijs
     - DB_NAME=wikijs
+    - POSTGRES_DB=wikijs
 configMapGenerator:
 - name: template-config
   literals:
@@ -22,7 +23,6 @@ configMapGenerator:
   - MYSQL_USER_WP=wordpress
   - MYSQL_USER_MW=wordpress
   - MYSQL_DATABASE_MW=tips_wiki
-  - POSTGRES_DB=wikijs
   - DB_HOST=testing-aimhighergg-com-wikijs-db-001
   - DB_PORT="5432"
   - DB_TYPE=postgres

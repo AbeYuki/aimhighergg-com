@@ -18,6 +18,7 @@ configMapGenerator:
   - DB_HOST=staging-aimhighergg-com-wikijs-db-001
   - DB_PORT="5432"
   - DB_TYPE=postgres
+  - PGDATA=/var/lib/postgresql/data/pgdata
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml

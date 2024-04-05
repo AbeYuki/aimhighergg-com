@@ -17,6 +17,7 @@ configMapGenerator:
   - MYSQL_USER_WP=wordpress
   - MYSQL_USER_MW=wordpress
   - MYSQL_DATABASE_MW=tips_wiki
+  - PGDATA=/var/lib/postgresql/data/pgdata
 transformers:
   - transformer-label.yaml
   - transformer-label-consul.yaml

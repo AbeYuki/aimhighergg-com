@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/name: wikijs
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi

@@ -12,3 +12,18 @@ spec:
     - http01:
         ingress:
           class: patchesstrategicmerge
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cluster-issuer-wiki
+spec:
+  acme:
+    email: patchesstrategicmerge
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: cluster-issuer-secret-wiki
+    solvers:
+    - http01:
+        ingress:
+          class: patchesstrategicmerge

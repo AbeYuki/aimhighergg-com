@@ -7,16 +7,6 @@ resources:
   - ../../base
   - ../../base-ingress
   - secret-avp-db.yaml
-#  - secret-avp-registry.yaml
-### Separated secret to use argocd ###
-#secretGenerator:
-#- name: kustomize-password
-#  files:
-#  - password=password.txt
-#- name: docker-registry
-#  files:
-#   - '.dockerconfigjson=docker-registry.json'
-#  type: kubernetes.io/dockerconfigjson
 configMapGenerator:
 - name: template-config
   literals:
@@ -38,35 +28,25 @@ images:
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"
-  - name: frontend-app02
-    newName: registry.gitlab.com/aimhighergg/docker-registry/mediawiki-wiki
-    newTag: "1.36.3"
-  - name: backend-db02
-    newName: mariadb
-    newTag: "10.5"
-  - name: frontend-static01
-    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
-    newTag: "1.1"
-  - name: frontend-static02
-    newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
-    newTag: "1.0"
   - name: frontend-static03
     newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
     newTag: "1.2.1"
+  - name: wikijs-db
+    newName: postgres
+    newTag: "15-alpine"
+  - name: wikijs
+    newName: ghcr.io/requarks/wiki
+    newTag: "2"
 replicas:
 - name: frontend-app01
   count: 1
 - name: backend-db01
   count: 1
-- name: frontend-app02
-  count: 1
-- name: backend-db02
-  count: 1
-- name: frontend-static01
-  count: 1
-- name: frontend-static02
-  count: 1
 - name: frontend-static03
+  count: 1
+- name: wikijs
+  count: 1
+- name: wikijs-db
   count: 1
 patches:
   - target:
@@ -354,24 +334,44 @@ patches:
                   name: frontend-static03
                   port:
                     number: 80
-            #- pathType: Prefix
-            #  path: /
-            #  backend:
-            #    service:
-            #      name: frontend-static02
-            #      port:
-            #        number: 80
-            #- pathType: Prefix
-            #  path: /.*
-            #  backend:
-            #    service:
-            #      name: frontend-static02
-            #      port:
-            #        number: 80
-            #- pathType: Prefix
-            #  path: /.*\/.*
-            #  backend:
-            #    service:
-            #      name: frontend-static02
-            #      port:
-            #        number: 80
+  - target:
+      version: v1
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: cluster-issuer
+    patch: |-
+      - op: replace
+        path: /spec/acme/email
+        value: aim4highergg@gmail.com
+      - op: replace
+        path: /spec/acme/privateKeySecretRef/name
+        value: cluster-issuer-secret-wiki
+      - op: replace
+        path: /spec/acme/solvers/0/http01/ingress/class
+        value: nginx
+  - target:
+      version: v1
+      group: networking.k8s.io
+      name: ingress-tls-wiki
+    patch: |-
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: ingress-tls-wiki
+      spec:
+        ingressClassName: nginx 
+        tls:
+        - hosts:
+            - staging-wiki.aimhighergg.com
+          secretName: tls-secret-wiki
+        rules:
+        - host: staging-wiki.aimhighergg.com
+          http:
+            paths:
+            - pathType: Prefix
+              path: /
+              backend:
+                service:
+                  name: wikijs
+                  port:
+                    number: 80

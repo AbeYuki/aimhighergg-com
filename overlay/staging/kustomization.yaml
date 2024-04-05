@@ -272,7 +272,7 @@ patches:
       version: v1
       group: cert-manager.io
       kind: ClusterIssuer
-      name: cluster-issuer
+      name: cluster-issuer-wiki
     patch: |-
       - op: replace
         path: /spec/acme/email

@@ -67,6 +67,11 @@ spec:
             secretKeyRef:
               name: kustomize-password
               key: POSTGRES_USER
+        - name: PGDATA
+          valueFrom:
+            configMapKeyRef:
+              name: template-config
+              key: PGDATA
         - name: TZ
           value: "Asia/Tokyo"
         ports:

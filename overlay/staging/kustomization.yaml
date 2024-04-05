@@ -206,7 +206,7 @@ patches:
   - target:
       version: v1
       kind: PersistentVolumeClaim
-      name: backend-db02
+      name: wikijs-db
     patch: |-
       - op: replace
         path: /spec/accessModes/0
@@ -216,7 +216,7 @@ patches:
         value: longhorn
       - op: replace
         path: /spec/resources/requests/storage
-        value: "10Gi"
+        value: "1Gi"
   - target:
       version: v1
       group: cert-manager.io

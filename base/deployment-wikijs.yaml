@@ -12,7 +12,7 @@ spec:
     targetPort: 3000
     protocol: TCP
   selector:
-    app.kubernetes.io/name: wikijs
+    app.kubernetes.io/component: wikijs
 ---
 apiVersion: apps/v1
 kind: Deployment

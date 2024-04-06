@@ -296,6 +296,8 @@ patches:
       kind: Ingress
       metadata:
         name: ingress-tls-wiki
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTP
       spec:
         ingressClassName: nginx 
         tls:

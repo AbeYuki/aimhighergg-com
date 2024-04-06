@@ -283,7 +283,7 @@ patches:
         tls:
         - hosts:
             - staging-wiki.aimhighergg.com
-          secretName: tls-secret-wiki
+          secretName: tls-secret
         rules:
         - host: staging-wiki.aimhighergg.com
           http:

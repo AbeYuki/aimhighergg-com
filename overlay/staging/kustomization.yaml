@@ -302,10 +302,10 @@ patches:
         ingressClassName: nginx 
         tls:
         - hosts:
-            - staging-wiki.aimhighergg.com
+            - staging.wiki.aimhighergg.com
           secretName: tls-secret-wiki
         rules:
-        - host: staging-wiki.aimhighergg.com
+        - host: staging.wiki.aimhighergg.com
           http:
             paths:
             - pathType: Prefix

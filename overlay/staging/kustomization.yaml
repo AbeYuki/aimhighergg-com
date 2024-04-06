@@ -312,4 +312,4 @@ patches:
                 service:
                   name: wikijs
                   port:
-                    number: 80
+                    number: 3000

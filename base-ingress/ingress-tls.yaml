@@ -33,7 +33,7 @@ spec:
   tls:
   - hosts:
       - patchesstrategicmerge
-    secretName: tls-secret
+    secretName: tls-secret-wiki
   rules:
   - host: patchesstrategicmerge
     http:

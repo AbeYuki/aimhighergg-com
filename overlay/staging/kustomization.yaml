@@ -189,7 +189,7 @@ patches:
         value: longhorn
       - op: replace
         path: /spec/resources/requests/storage
-        value: "10Gi"
+        value: "1Gi"
   - target:
       version: v1
       kind: PersistentVolumeClaim
@@ -203,7 +203,7 @@ patches:
         value: longhorn
       - op: replace
         path: /spec/resources/requests/storage
-        value: "10Gi"
+        value: "1Gi"
   - target:
       version: v1
       kind: PersistentVolumeClaim

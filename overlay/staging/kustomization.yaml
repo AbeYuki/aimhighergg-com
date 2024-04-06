@@ -271,21 +271,6 @@ patches:
                     number: 80
   - target:
       version: v1
-      group: cert-manager.io
-      kind: ClusterIssuer
-      name: cluster-issuer-wiki
-    patch: |-
-      - op: replace
-        path: /spec/acme/email
-        value: aim4highergg@gmail.com
-      - op: replace
-        path: /spec/acme/privateKeySecretRef/name
-        value: cluster-issuer-secret-wiki
-      - op: replace
-        path: /spec/acme/solvers/0/http01/ingress/class
-        value: nginx
-  - target:
-      version: v1
       group: networking.k8s.io
       name: ingress-tls-wiki
     patch: |-

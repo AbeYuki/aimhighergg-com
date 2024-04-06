@@ -27,7 +27,7 @@ kind: Ingress
 metadata:
   name: ingress-tls-wiki
   annotations:
-    cert-manager.io/cluster-issuer: cluster-issuer-wiki
+    cert-manager.io/cluster-issuer: cluster-issuer
 spec:
   ingressClassName: nginx
   tls:

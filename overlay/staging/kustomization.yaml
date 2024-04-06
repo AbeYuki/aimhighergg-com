@@ -250,7 +250,6 @@ patches:
         tls:
         - hosts:
             - staging.aimhighergg.com
-            - staging-wiki.aimhighergg.com
           secretName: tls-secret
         rules:
         - host: staging.aimhighergg.com
@@ -270,6 +269,40 @@ patches:
                   name: frontend-static03
                   port:
                     number: 80
+  - target:
+      version: v1
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: cluster-issuer-wiki
+    patch: |-
+      - op: replace
+        path: /spec/acme/email
+        value: aim4highergg@gmail.com
+      - op: replace
+        path: /spec/acme/server
+        value: https://acme-v02.api.letsencrypt.org/directory
+      - op: replace
+        path: /spec/acme/privateKeySecretRef/name
+        value: cluster-issuer-secret-wiki
+      - op: replace
+        path: /spec/acme/solvers/0/http01/ingress/class
+        value: nginx
+  - target:
+      version: v1
+      group: networking.k8s.io
+      name: ingress-tls-wiki
+    patch: |-
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: ingress-tls-wiki
+      spec:
+        ingressClassName: nginx 
+        tls:
+        - hosts:
+            - staging-wiki.aimhighergg.com
+          secretName: tls-secret
+        rules:
         - host: staging-wiki.aimhighergg.com
           http:
             paths:

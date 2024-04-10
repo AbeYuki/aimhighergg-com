@@ -189,7 +189,7 @@ patches:
         value: longhorn
       - op: replace
         path: /spec/resources/requests/storage
-        value: "10Gi"
+        value: "1Gi"
   - target:
       version: v1
       kind: PersistentVolumeClaim
@@ -203,7 +203,7 @@ patches:
         value: longhorn
       - op: replace
         path: /spec/resources/requests/storage
-        value: "10Gi"
+        value: "1Gi"
   - target:
       version: v1
       kind: PersistentVolumeClaim
@@ -279,6 +279,9 @@ patches:
         path: /spec/acme/email
         value: aim4highergg@gmail.com
       - op: replace
+        path: /spec/acme/server
+        value: https://acme-v02.api.letsencrypt.org/directory
+      - op: replace
         path: /spec/acme/privateKeySecretRef/name
         value: cluster-issuer-secret-wiki
       - op: replace
@@ -297,10 +300,10 @@ patches:
         ingressClassName: nginx 
         tls:
         - hosts:
-            - staging-wiki.aimhighergg.com
+            - staging.wiki.aimhighergg.com
           secretName: tls-secret-wiki
         rules:
-        - host: staging-wiki.aimhighergg.com
+        - host: staging.wiki.aimhighergg.com
           http:
             paths:
             - pathType: Prefix
@@ -309,4 +312,4 @@ patches:
                 service:
                   name: wikijs
                   port:
-                    number: 80
+                    number: 3000

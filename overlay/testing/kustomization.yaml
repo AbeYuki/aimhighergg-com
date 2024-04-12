@@ -9,6 +9,10 @@ secretGenerator:
 - name: kustomize-password
   literals:
     - password=testing
+    - POSTGRES_USER=wikijs
+    - DB_USER=wikijs
+    - DB_NAME=wikijs
+    - POSTGRES_DB=wikijs
 configMapGenerator:
 - name: template-config
   literals:
@@ -19,6 +23,10 @@ configMapGenerator:
   - MYSQL_USER_WP=wordpress
   - MYSQL_USER_MW=wordpress
   - MYSQL_DATABASE_MW=tips_wiki
+  - DB_HOST=testing-aimhighergg-com-wikijs-db-001
+  - DB_PORT="5432"
+  - DB_TYPE=postgres
+  - PGDATA=/var/lib/postgresql/data/pgdata
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml
@@ -29,33 +37,25 @@ images:
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"
-  - name: frontend-app02
-    newName: registry.gitlab.com/aimhighergg/docker-registry/mediawiki-wiki
-    newTag: "1.36.3"
-  - name: backend-db02
-    newName: mariadb
-    newTag: "10.5"
-  - name: frontend-static01
-    newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
-    newTag: "1.0"
-  - name: frontend-static02
-    newName: registry.gitlab.com/aimhighergg/docker-registry/maintenance
-    newTag: "1.0"
   - name: frontend-static03
     newName: registry.gitlab.com/aimhighergg/docker-registry/portfolio
     newTag: "1.2.1"
+  - name: wikijs-db
+    newName: postgres
+    newTag: "15-alpine"
+  - name: wikijs
+    newName: ghcr.io/requarks/wiki
+    newTag: "2"
 replicas:
 - name: frontend-app01
   count: 1
 - name: backend-db01
   count: 1
-- name: frontend-app02
+- name: frontend-static03
   count: 1
-- name: backend-db02
+- name: wikijs
   count: 1
-- name: frontend-static01
-  count: 1
-- name: frontend-static02
+- name: wikijs-db
   count: 1
 patches:
   - target:
@@ -94,78 +94,6 @@ patches:
       - op: replace
         path: /spec/template/spec/containers/0/resources/limits/memory
         value: "256Mi"
-  - target:
-      version: v1
-      group: apps
-      kind: Deployment
-      name: backend-db02
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/memory
-        value: "125Mi"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/cpu
-        value: "0.3"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/memory
-        value: "512Mi"
-  - target:
-      version: v1
-      group: apps
-      kind: Deployment
-      name: frontend-app02
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/memory
-        value: "125Mi"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/cpu
-        value: "0.3"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/memory
-        value: "256Mi"
-  - target:
-      version: v1
-      group: apps
-      kind: Deployment
-      name: frontend-static01
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/memory
-        value: "125Mi"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/memory
-        value: "125Mi"
-  - target:
-      version: v1
-      group: apps
-      kind: Deployment
-      name: frontend-static02
-    patch: |-
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/requests/memory
-        value: "125Mi"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/cpu
-        value: "0.1"
-      - op: replace
-        path: /spec/template/spec/containers/0/resources/limits/memory
-        value: "125Mi"
   - target:
       version: v1
       group: apps
@@ -215,7 +143,7 @@ patches:
   - target:
       version: v1
       kind: PersistentVolumeClaim
-      name: backend-db02
+      name: wikijs-db
     patch: |-
       - op: replace
         path: /spec/accessModes/0

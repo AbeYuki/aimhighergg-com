@@ -42,7 +42,7 @@ images:
     newTag: "2"
 replicas:
 - name: frontend-app01
-  count: 1
+  count: 2
 - name: backend-db01
   count: 1
 - name: frontend-static03

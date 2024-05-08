@@ -42,7 +42,7 @@ images:
     newTag: "2"
 replicas:
 - name: frontend-app01
-  count: 1
+  count: 3
 - name: backend-db01
   count: 1
 - name: frontend-static03
@@ -185,7 +185,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/accessModes/0
-        value: ReadWriteOnce
+        value: ReadWriteMany
       - op: replace
         path: /spec/storageClassName
         value: longhorn

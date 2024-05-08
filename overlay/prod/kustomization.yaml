@@ -78,7 +78,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/template/spec/containers/0/resources/requests/cpu
-        value: "0.5"
+        value: "0.4"
       - op: replace
         path: /spec/template/spec/containers/0/resources/requests/memory
         value: "258Mi"

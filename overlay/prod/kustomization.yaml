@@ -6,7 +6,6 @@ generatorOptions:
 resources:
   - ../../base
   - secret-avp-db.yaml
-  - secret-avp-registry.yaml
 configMapGenerator:
 - name: template-config
   literals:

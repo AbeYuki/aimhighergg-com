@@ -4,6 +4,8 @@ namespace: staging-aimhighergg-com
 resources:
   - ../../base
   - secret-avp-db.yaml
+commonAnnotations:
+  consul.hashicorp.com/connect-inject: "true"
 configMapGenerator:
 - name: template-config
   literals:

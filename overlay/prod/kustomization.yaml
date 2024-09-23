@@ -186,7 +186,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/accessModes/0
-        value: ReadWriteMany
+        value: ReadWriteOnce
       - op: replace
         path: /spec/storageClassName
         value: longhorn

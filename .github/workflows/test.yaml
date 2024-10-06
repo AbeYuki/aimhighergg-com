@@ -1,0 +1,29 @@
+name: Self-Hosted Runner Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests on Self-Hosted Runner
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run a test
+        run: echo "test"
+
+      - name: Test file test
+        run: |
+          if [ -f "README.md" ]; then
+            echo "README.md OK"
+          else
+            exit 1
+          fi

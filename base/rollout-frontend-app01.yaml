@@ -62,13 +62,14 @@ spec:
   strategy:
     canary:
       steps:
-        - setWeight: 20
-        - pause: { duration: 30s }
-        - setWeight: 50
-        - pause: { duration: 60s }
-        - setWeight: 100
-      maxSurge: 1
-      maxUnavailable: 0
+      - setWeight: 20
+      - pause: {}
+      - setWeight: 40
+      - pause: {duration: 10}
+      - setWeight: 60
+      - pause: {duration: 10}
+      - setWeight: 80
+      - pause: {duration: 10}
   template:
     metadata:
       labels:

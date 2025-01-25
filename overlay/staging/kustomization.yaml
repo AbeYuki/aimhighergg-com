@@ -73,7 +73,7 @@ patches:
   - target:
       version: v1
       group: apps
-      kind: Deployment
+      kind: rollout
       name: frontend-app01
     patch: |-
       - op: replace

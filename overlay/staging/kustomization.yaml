@@ -4,6 +4,7 @@ namespace: staging-aimhighergg-com
 resources:
   - ../../base
   - secret-avp-db.yaml
+  - mariadb-config.yaml
 commonAnnotations:
   consul.hashicorp.com/connect-inject: "true"
 configMapGenerator:
@@ -219,3 +220,26 @@ patches:
       - op: replace
         path: /spec/resources/requests/storage
         value: "1Gi"
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: backend-db01
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: backend-db01
+      spec:
+        template:
+          spec:
+            containers:
+            - name: mariadb
+              volumeMounts:
+                - name: mariadb-config
+                  mountPath: /etc/mysql/my.cnf
+                  subPath: my.cnf
+              volumes:
+                - name: mariadb-config
+                  configMap:
+                    name: mariadb-config

@@ -5,6 +5,8 @@ resources:
   - ../../base
   - secret-avp-db.yaml
   - mariadb-config.yaml
+configurations:
+- rollout-transform.yaml
 commonAnnotations:
   consul.hashicorp.com/connect-inject: "true"
 configMapGenerator:

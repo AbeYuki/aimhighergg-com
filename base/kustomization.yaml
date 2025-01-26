@@ -2,7 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment-frontend-static03.yaml
-  - deployment-frontend-app01.yaml
+#  - deployment-frontend-app01.yaml
   - deployment-backend-db01.yaml
   - deployment-wikijs-db.yaml
   - deployment-wikijs.yaml
+  - rollout-frontend-app01.yaml

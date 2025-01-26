@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-slowquery-config
+data:
+  60-slow-query-log.cnf: |
+    [mysqld]
+    slow_query_log = 1
+    long_query_time = 1
+    slow_query_log_file = /dev/stdout

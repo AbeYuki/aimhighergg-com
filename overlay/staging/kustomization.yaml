@@ -5,8 +5,6 @@ resources:
   - ../../base
   - secret-avp-db.yaml
   - mariadb-config.yaml
-configurations:
-- rollout-transform.yaml
 commonAnnotations:
   consul.hashicorp.com/connect-inject: "true"
 configMapGenerator:
@@ -23,6 +21,8 @@ configMapGenerator:
   - DB_PORT="5432"
   - DB_TYPE=postgres
   - PGDATA=/var/lib/postgresql/data/pgdata
+configurations:
+  - configuration-rollout.yaml
 transformers:
   - transformer-label.yaml
   - transformer-suffixprefix.yaml

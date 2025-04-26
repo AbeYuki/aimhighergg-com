@@ -30,7 +30,7 @@ transformers:
 images:
   - name: frontend-app01
     newName: wordpress
-    newTag: "6.5.5-php8.3-apache"
+    newTag: "6.8.0-php8.4-apache"
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"

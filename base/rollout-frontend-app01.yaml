@@ -65,11 +65,11 @@ spec:
       - setWeight: 20
       - pause: {}
       - setWeight: 40
-      - pause: {duration: 10}
+      - pause: {duration: 300}
       - setWeight: 60
-      - pause: {duration: 10}
+      - pause: {duration: 200}
       - setWeight: 80
-      - pause: {duration: 10}
+      - pause: {duration: 100}
   template:
     metadata:
       labels:

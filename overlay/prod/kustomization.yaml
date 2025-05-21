@@ -42,7 +42,7 @@ images:
     newTag: "15-alpine"
   - name: wikijs
     newName: ghcr.io/requarks/wiki
-    newTag: "2"
+    newTag: "2.5"
 replicas:
 - name: frontend-app01
   count: 2

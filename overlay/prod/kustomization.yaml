@@ -19,7 +19,6 @@ configMapGenerator:
   - DB_PORT="5432"
   - DB_TYPE=postgres
   - PGDATA=/var/lib/postgresql/data/pgdata
-  - test=test
 configurations:
   - configuration-rollout.yaml
 transformers:

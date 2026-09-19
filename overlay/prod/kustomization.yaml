@@ -28,7 +28,7 @@ transformers:
 images:
   - name: frontend-app01
     newName: wordpress
-    newTag: "7.0.2-php8.5-apache"
+    newTag: "7.1.1-php8.5-apache"
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"

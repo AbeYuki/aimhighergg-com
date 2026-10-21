@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: www-aimhighergg-com
 resources:
   - ../../base
+  - ../../base/maintenance
   - secret-avp-db.yaml
   - secret-avp-registry.yaml
 configMapGenerator:
@@ -43,7 +44,7 @@ images:
     newTag: "2.5.311"
 replicas:
 - name: frontend-app01
-  count: 2
+  count: 0
 - name: backend-db01
   count: 1
 - name: frontend-static03
@@ -53,6 +54,20 @@ replicas:
 - name: wikijs-db
   count: 1
 patches:
+  # Keep the existing NodePort Service and Ingress destination; serve maintenance.
+  - target:
+      version: v1
+      kind: Service
+      name: frontend-app01
+    patch: |-
+      - op: replace
+        path: /spec/selector
+        value:
+          app.kubernetes.io/name: maintenance
+          app.kubernetes.io/instance: maintenance-001
+      - op: replace
+        path: /spec/ports/0/targetPort
+        value: 8080
   - target:
       version: v1
       group: apps

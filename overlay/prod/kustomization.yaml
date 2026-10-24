@@ -55,19 +55,19 @@ replicas:
   count: 1
 patches:
   # Keep the existing NodePort Service and Ingress destination; serve maintenance.
-  - target:
-      version: v1
-      kind: Service
-      name: frontend-app01
-    patch: |-
-      - op: replace
-        path: /spec/selector
-        value:
-          app.kubernetes.io/name: maintenance
-          app.kubernetes.io/instance: maintenance-001
-      - op: replace
-        path: /spec/ports/0/targetPort
-        value: 8080
+  #- target:
+  #    version: v1
+  #    kind: Service
+  #    name: frontend-app01
+  #  patch: |-
+  #    - op: replace
+  #      path: /spec/selector
+  #      value:
+  #        app.kubernetes.io/name: maintenance
+  #        app.kubernetes.io/instance: maintenance-001
+  #    - op: replace
+  #      path: /spec/ports/0/targetPort
+  #      value: 8080
   - target:
       version: v1
       group: apps

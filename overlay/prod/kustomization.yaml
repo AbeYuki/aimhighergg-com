@@ -29,7 +29,7 @@ transformers:
 images:
   - name: frontend-app01
     newName: wordpress
-    newTag: "7.1.2-php8.5-apache"
+    newTag: "7.1.3-php8.5-apache"
   - name: backend-db01
     newName: mariadb
     newTag: "10.5"
@@ -44,7 +44,7 @@ images:
     newTag: "2.5.311"
 replicas:
 - name: frontend-app01
-  count: 0
+  count: 2
 - name: backend-db01
   count: 1
 - name: frontend-static03

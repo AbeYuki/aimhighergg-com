@@ -89,8 +89,6 @@ spec:
                 values:
                 - wordpress
             topologyKey: "kubernetes.io/hostname"
-      imagePullSecrets:
-        - name: docker-registry
       containers:
       - name: wordpress
         image: frontend-app01
